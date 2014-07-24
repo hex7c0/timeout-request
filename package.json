@@ -1,0 +1,32 @@
+{
+  "name": "timeout-request",
+  "version": "1.0.0",
+  "description": "http timeout request middleware for nodejs",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hex7c0/timeout-request.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hex7c0/timeout-request/issues"
+  },
+  "author": {
+    "name": "hex7c0",
+    "email": "hex7c0@gmail.com",
+    "url": "http://hex7c0.tk/"
+  },
+  "dependencies": {
+  },
+  "devDependencies":{
+    "express": "4.6.X"
+  },
+  "engines": {
+    "node": ">0.10.0"
+  },
+  "keywords": [
+    "request",
+    "timeout"
+  ],
+  "license": "GPLv3",
+  "homepage": "https://github.com/hex7c0/timeout-request"
+}
