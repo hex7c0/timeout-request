@@ -1,6 +1,7 @@
 #timeout-request [![Build Status](https://travis-ci.org/hex7c0/timeout-request.svg?branch=master)](https://travis-ci.org/hex7c0/timeout-request) [![NPM version](https://badge.fury.io/js/timeout-request.svg)](http://badge.fury.io/js/timeout-request)
 
-set the number of milliseconds a function is allowed to run in [nodejs](http://nodejs.org/). If this is reached, `res.end()` will be call or custom callback
+set the number of milliseconds a script is allowed to run in [nodejs](http://nodejs.org/). If this is reached, `res.end()` will be call or custom callback.
+Emit `timeout` with '(req,res)'
 
 ## Installation
 

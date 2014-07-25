@@ -27,7 +27,7 @@ app.use(timeout());
 // express routing
 app.get('/',function(req,res) {
 
-    res.send('hello world!');
+    // wait timeout-request callback
 });
 // server starting
 app.listen(3000);

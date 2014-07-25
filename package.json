@@ -1,6 +1,6 @@
 {
   "name": "timeout-request",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "http timeout request middleware for nodejs",
   "main": "index.js",
   "repository": {
@@ -25,7 +25,8 @@
   },
   "keywords": [
     "request",
-    "timeout"
+    "timeout",
+    "shutdown"
   ],
   "license": "GPLv3",
   "homepage": "https://github.com/hex7c0/timeout-request"
