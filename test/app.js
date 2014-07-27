@@ -1,6 +1,6 @@
 "use strict";
 /**
- * @file hello test
+ * @file app test
  * @module timeout-request
  * @package timeout-request
  * @subpackage test
@@ -25,26 +25,21 @@ try {
 /*
  * test module
  */
-describe('hello',function() {
+describe('app',function() {
 
     before(function(done) {
 
         app.use(timeout({
-            milliseconds: 10,
-            callback: function(a) {
-
-                console.log(a);
-            },
-            data: 'ciao',
+            milliseconds: 1000
         }));
         app.get('/',function(req,res) {
 
-            res.send('hello world!');
+            // pass
         });
         done();
     });
 
-    it('print - should print "ciao" to console',function(done) {
+    it('long - should get 200 after 1000 milliseconds',function(done) {
 
         request(app).get('/').expect(200,done);
     });

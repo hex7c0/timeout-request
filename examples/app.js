@@ -22,7 +22,9 @@ try {
 }
 
 // using middleware
-app.use(timeout());
+app.use(timeout({
+    milliseconds: 1000
+}));
 
 // express routing
 app.get('/',function(req,res) {
