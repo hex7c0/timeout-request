@@ -4,7 +4,7 @@
  * @module timeout-request
  * @package timeout-request
  * @subpackage examples
- * @version 0.0.1
+ * @version 0.0.2
  * @author hex7c0 <hex7c0@gmail.com>
  * @license GPLv3
  */
@@ -14,7 +14,7 @@
  */
 // import
 try {
-    var timeout = require('../index.js'); // use require('timeout-request') instead
+    var timeout = require('../index.min.js'); // use require('timeout-request') instead
     var app = require('express')();
 } catch (MODULE_NOT_FOUND) {
     console.error(MODULE_NOT_FOUND);
