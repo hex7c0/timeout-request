@@ -4,15 +4,30 @@
  * @module timeout-request
  * @package timeout-request
  * @subpackage main
- * @version 1.0.1
+ * @version 1.1.0
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
- * @license GPLv3
+ * @license GPLv3 https://www.npmjs.org/package/browser-language
  */
 
 /*
  * functions
  */
+/**
+ * end of work
+ * 
+ * @param {next} [next] - continue routes
+ * @return {next}
+ */
+function end(next) {
+
+    try {
+        return next();
+    } catch (TypeError) {
+        return;
+    }
+}
+
 /**
  * function wrapper for multiple require
  * 
@@ -63,11 +78,7 @@ function wrapper(options,flag) {
                 return opt.callback(opt.data);
             }
 
-            try {
-                return next();
-            } catch (TypeError) {
-                return;
-            }
+            return end(next);
         };
     }
 
@@ -107,11 +118,7 @@ function wrapper(options,flag) {
             return res.end();
         }
 
-        try {
-            return next();
-        } catch (TypeError) {
-            return;
-        }
+        return end(next);
     };
 }
 
@@ -129,7 +136,7 @@ module.exports = function timeout(options) {
     var my = {
         milliseconds: Number(options.milliseconds) || 2000,
         header: Boolean(options.header),
-        clear: options.clear == false ? false : true,
+        clear: options.clear == false ? false : true
     };
     if (options.callback) {
         my.callback = options.callback;
