@@ -64,7 +64,6 @@ function wrapper(options,flag) {
              * 
              * @function callback
              * @param {Object} res - response to client
-             * @return
              */
             function callback() {
 
@@ -104,7 +103,6 @@ function wrapper(options,flag) {
          * 
          * @function callback
          * @param {Object} res - response to client
-         * @return
          */
         function callback() {
 
