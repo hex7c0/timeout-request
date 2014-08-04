@@ -18,6 +18,10 @@ or
 ```
 git clone git://github.com/hex7c0/timeout-request.git
 ```
+or
+```
+http://supergiovane.tk/#/timeout-request
+```
 
 ## API
 
