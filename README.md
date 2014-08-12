@@ -1,26 +1,23 @@
-# [timeout-request](https://github.com/hex7c0/timeout-request)
+# [timeout-request](http://supergiovane.tk/#/timeout-request)
+
 [![NPM version](https://badge.fury.io/js/timeout-request.svg)](http://badge.fury.io/js/timeout-request)
 [![Build Status](https://travis-ci.org/hex7c0/timeout-request.svg?branch=master)](https://travis-ci.org/hex7c0/timeout-request)
 [![devDependency Status](https://david-dm.org/hex7c0/timeout-request/dev-status.svg)](https://david-dm.org/hex7c0/timeout-request#info=devDependencies)
 
 Set the number of milliseconds a script is allowed to run in [nodejs](http://nodejs.org/).
 If this is reached, `res.end()` will be call or custom callback.
-Emit `timeout` with '(req,res)'
+Emit `timeout` with "(req,res)"
 
 ## Installation
 
 Install through NPM
 
-```
+```bash
 npm install timeout-request
 ```
 or
-```
+```bash
 git clone git://github.com/hex7c0/timeout-request.git
-```
-or
-```
-http://supergiovane.tk/#/timeout-request
 ```
 
 ## API
@@ -43,11 +40,8 @@ app.use(timeout());
  - `callback` - **Function** Custom callback instead of `res.end` *(default "null")*
  - `data` - **Object** Object passed to custom callback *(default "null")*
 
-#### Examples
+## Examples
 
 Take a look at my [examples](https://github.com/hex7c0/timeout-request/tree/master/examples)
 
-## License
-Copyright (c) 2014 hex7c0
-
-Licensed under the GPLv3 license
+### [License GPLv3](http://opensource.org/licenses/GPL-3.0)
