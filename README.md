@@ -2,7 +2,7 @@
 
 [![NPM version](https://badge.fury.io/js/timeout-request.svg)](http://badge.fury.io/js/timeout-request)
 [![Build Status](https://travis-ci.org/hex7c0/timeout-request.svg?branch=master)](https://travis-ci.org/hex7c0/timeout-request)
-[![devDependency Status](https://david-dm.org/hex7c0/timeout-request/dev-status.svg)](https://david-dm.org/hex7c0/timeout-request#info=devDependencies)
+[![Dependency Status](https://david-dm.org/hex7c0/timeout-request/status.svg)](https://david-dm.org/hex7c0/timeout-request)
 
 Set the number of milliseconds a script is allowed to run in [nodejs](http://nodejs.org/).
 If this is reached, `res.end()` will be call or custom callback.
