@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * @file app test
  * @module timeout-request
