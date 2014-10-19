@@ -4,7 +4,7 @@
  * @module timeout-request
  * @package timeout-request
  * @subpackage main
- * @version 1.1.3
+ * @version 1.1.9
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -14,32 +14,16 @@
  * functions
  */
 /**
- * end of work
- * 
- * @param {next} [next] - continue routes
- * @return {next}
- */
-function end(next) {
-
-    if (next) {
-        return next();
-    }
-    return;
-}
-
-/**
  * function wrapper for multiple require
  * 
  * @function wrapper
- * @param {Object} options - parsed options
+ * @param {Object} my - parsed options
  * @param {Boolear} flag - flag for custom callback
  * @return {Function}
  */
-function wrapper(options, flag) {
+function wrapper(my, flag) {
 
-    var my = options;
     var T;
-
     if (options.callback) {
         /**
          * set timeout with custom callback
@@ -52,11 +36,11 @@ function wrapper(options, flag) {
          */
         return function timer(req, res, next) {
 
-            var opt = my;
-            if (opt.clear) {
+            if (my.clear) {
                 clearTimeout(T);
             }
-            T = setTimeout(callback, opt.milliseconds);
+            T = setTimeout(callback, my.milliseconds);
+            return next ? next() : null;
 
             /**
              * callback timer
@@ -67,16 +51,14 @@ function wrapper(options, flag) {
             function callback() {
 
                 req.emit('emit', req, res);
-                if (opt.header) {
+                if (my.header) {
                     if (!res._headerSent) {
-                        return opt.callback(opt.data);
+                        return my.callback(req, res, my.data);
                     }
                     return;
                 }
-                return opt.callback(opt.data);
+                return my.callback(req, res, my.data);
             }
-
-            return end(next);
         };
     }
 
@@ -91,11 +73,11 @@ function wrapper(options, flag) {
      */
     return function timer(req, res, next) {
 
-        var opt = my;
-        if (opt.clear) {
+        if (my.clear) {
             clearTimeout(T);
         }
-        T = setTimeout(callback, opt.milliseconds);
+        T = setTimeout(callback, my.milliseconds);
+        return next ? next() : null;
 
         /**
          * callback timer
@@ -106,7 +88,7 @@ function wrapper(options, flag) {
         function callback() {
 
             req.emit('emit', req, res);
-            if (opt.header) {
+            if (my.header) {
                 if (!res._headerSent) {
                     res.end();
                 }
@@ -123,8 +105,6 @@ function wrapper(options, flag) {
             };
             return;
         }
-
-        return end(next);
     };
 }
 
