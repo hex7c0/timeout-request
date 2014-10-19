@@ -4,9 +4,9 @@
 [![Build Status](https://travis-ci.org/hex7c0/timeout-request.svg?branch=master)](https://travis-ci.org/hex7c0/timeout-request)
 [![Dependency Status](https://david-dm.org/hex7c0/timeout-request/status.svg)](https://david-dm.org/hex7c0/timeout-request)
 
-Set the number of milliseconds a script is allowed to run in [nodejs](http://nodejs.org/).
+Set the number of milliseconds that a script is allowed to run in [nodejs](http://nodejs.org/).
 If this is reached, `res.end()` will be call or custom callback.
-Emit `timeout` with "(req,res)"
+Emit `timeout` with "(req.res)"
 
 ## Installation
 
