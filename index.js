@@ -24,7 +24,7 @@
 function wrapper(my, flag) {
 
     var T;
-    if (options.callback) {
+    if (my.callback) {
         /**
          * set timeout with custom callback
          * 
