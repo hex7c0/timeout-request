@@ -4,7 +4,7 @@
  * @module timeout-request
  * @package timeout-request
  * @subpackage main
- * @version 1.1.6
+ * @version 1.1.0
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -24,7 +24,7 @@
 function wrapper(my, flag) {
 
     var T;
-    if (my.callback) {
+    if (flag) {
         /**
          * set timeout with custom callback
          * 
@@ -113,16 +113,16 @@ function wrapper(my, flag) {
  * 
  * @exports timeout
  * @function timeout
- * @param {Object} options - various options. Check README.md
+ * @param {Object} opt - various options. Check README.md
  * @return {Function}
  */
-module.exports = function timeout(options) {
+function timeout(opt) {
 
-    var options = options || Object.create(null);
+    var options = opt || Object.create(null);
     var my = {
         milliseconds: Number(options.milliseconds) || 2000,
         header: Boolean(options.header),
-        clear: options.clear == false ? false : true
+        clear: options.clear === false ? false : true
     };
     if (options.callback) {
         my.callback = options.callback;
@@ -130,4 +130,5 @@ module.exports = function timeout(options) {
         return wrapper(my, true);
     }
     return wrapper(my, false);
-};
+}
+module.exports = timeout;
