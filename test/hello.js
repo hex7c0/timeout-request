@@ -14,9 +14,12 @@
  */
 // import
 try {
-    var timeout = require('../index.min.js'); // use require('timeout-request') instead
+    var timeout = require('../index.min.js'); // use
+    // require('timeout-request')
+    // instead
     var app = require('express')();
     var request = require('supertest');
+    var assert = require('assert');
 } catch (MODULE_NOT_FOUND) {
     console.error(MODULE_NOT_FOUND);
     process.exit(1);
@@ -25,27 +28,32 @@ try {
 /*
  * test module
  */
-describe('hello',function() {
+describe('hello', function() {
 
+    var data = 'ciao';
     before(function(done) {
 
         app.use(timeout({
             milliseconds: 10,
-            callback: function(a) {
+            callback: function(req, res, a) {
 
-                console.log(a);
+                res.send(a);
             },
-            data: 'ciao',
+            data: data,
         }));
-        app.get('/',function(req,res) {
+        app.get('/', function(req, res) {
 
-            res.send('hello world!');
+            // pass
         });
         done();
     });
 
-    it('print - should print "ciao" to console',function(done) {
+    it('print - should return "ciao"', function(done) {
 
-        request(app).get('/').expect(200,done);
+        request(app).get('/').expect(200).end(function(err, res) {
+
+            assert.equal(res.text, data);
+            done();
+        });
     });
 });
