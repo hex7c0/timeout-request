@@ -4,7 +4,7 @@
  * @module timeout-request
  * @package timeout-request
  * @subpackage main
- * @version 1.1.0
+ * @version 1.2.0
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -23,47 +23,54 @@
  */
 function wrapper(my, flag) {
 
-    var T;
+    var callback;
     if (flag) {
-        /**
-         * set timeout with custom callback
-         * 
-         * @function timer
-         * @param {Object} req - client request
-         * @param {Object} res - response to client
-         * @param {next} next - continue routes
-         * @return {next}
-         */
-        return function timer(req, res, next) {
+        if (my.header) {
+            callback = function(req, res) {
 
-            if (my.clear) {
-                clearTimeout(T);
-            }
-            T = setTimeout(callback, my.milliseconds);
-            return next ? next() : null;
-
-            /**
-             * callback timer
-             * 
-             * @function callback
-             * @param {Object} res - response to client
-             */
-            function callback() {
-
-                req.emit('emit', req, res);
-                if (my.header) {
-                    if (!res._headerSent) {
-                        return my.callback(req, res, my.data);
-                    }
-                    return;
+                req.emit('timeout', req, res);
+                if (res._headerSent === false) {
+                    return my.callback(req, res, my.data);
                 }
+                return;
+            };
+        } else {
+            callback = function(req, res) {
+
+                req.emit('timeout', req, res);
                 return my.callback(req, res, my.data);
-            }
-        };
+            };
+        }
+    } else {
+        if (my.header) {
+            callback = function(req, res) {
+
+                req.emit('timeout', req, res);
+                if (res._headerSent === false) {
+                    res.end();
+                    res.end = function() { // override
+
+                        return;
+                    };
+                }
+                return;
+            };
+        } else {
+            callback = function(req, res) {
+
+                req.emit('timeout', req, res);
+                res.end();
+                res.end = function() { // override
+
+                    return;
+                };
+                return;
+            };
+        }
     }
 
     /**
-     * set timeout with res.end
+     * set timeout with custom callback
      * 
      * @function timer
      * @param {Object} req - client request
@@ -73,38 +80,8 @@ function wrapper(my, flag) {
      */
     return function timer(req, res, next) {
 
-        if (my.clear) {
-            clearTimeout(T);
-        }
-        T = setTimeout(callback, my.milliseconds);
-        return next ? next() : null;
-
-        /**
-         * callback timer
-         * 
-         * @function callback
-         * @param {Object} res - response to client
-         */
-        function callback() {
-
-            req.emit('emit', req, res);
-            if (my.header) {
-                if (!res._headerSent) {
-                    res.end();
-                }
-                res.end = function() {
-
-                    return;
-                };
-                return;
-            }
-            res.end();
-            res.end = function() {
-
-                return;
-            };
-            return;
-        }
+        setTimeout(callback.bind(this, req, res), my.milliseconds);
+        return next();
     };
 }
 
@@ -122,7 +99,6 @@ function timeout(opt) {
     var my = {
         milliseconds: Number(options.milliseconds) || 2000,
         header: Boolean(options.header),
-        clear: options.clear === false ? false : true
     };
     if (options.callback) {
         my.callback = options.callback;
