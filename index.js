@@ -31,10 +31,7 @@ function wrapper(my, flag) {
                 req.emit('timeout', req, res);
                 var t = res.finished
                         || (res.socket && res.socket.writable === false);
-                if (t === false) {
-                    return my.callback(req, res, my.data);
-                }
-                return;
+                return t === false ? my.callback(req, res, my.data) : null;
             };
         } else {
             callback = function(req, res) {
