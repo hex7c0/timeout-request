@@ -29,7 +29,9 @@ function wrapper(my, flag) {
             callback = function(req, res) {
 
                 req.emit('timeout', req, res);
-                if (res._headerSent === false) {
+                var t = res.finished
+                        || (res.socket && res.socket.writable === false);
+                if (t === false) {
                     return my.callback(req, res, my.data);
                 }
                 return;
@@ -46,7 +48,9 @@ function wrapper(my, flag) {
             callback = function(req, res) {
 
                 req.emit('timeout', req, res);
-                if (res._headerSent === false) {
+                var t = res.finished
+                        || (res.socket && res.socket.writable === false);
+                if (t === false) {
                     res.end();
                     res.end = function() { // override
 
