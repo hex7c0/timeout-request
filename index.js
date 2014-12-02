@@ -28,7 +28,8 @@ function wrapper(my, flag) {
     if (my.header) {
       callback = function(req, res) {
 
-        var t = res.finished || (res.socket && res.socket.writable === false);
+        var t = res.finished === true
+            || (req.socket !== undefined && req.socket.writable === false);
         return t === false ? my.callback(req, res, my.data) : null;
       };
     } else {
@@ -46,7 +47,8 @@ function wrapper(my, flag) {
     if (my.header) {
       callback = function(req, res) {
 
-        var t = res.finished || (res.socket && res.socket.writable === false);
+        var t = res.finished === true
+            || (req.socket !== undefined && req.socket.writable === false);
         return t === false ? end(req, res) : null;
       };
     } else {
