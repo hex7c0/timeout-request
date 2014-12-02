@@ -42,12 +42,12 @@ function wrapper(my, flag) {
       callback = function(req, res) {
 
         var t = res.finished || (res.socket && res.socket.writable === false);
-        return t === false ? req.socket.destroy() : null;
+        return t === false ? res.end() : null;
       };
     } else {
-      callback = function(req) {
+      callback = function(req, res) {
 
-        return req.socket.destroy();
+        return res.end();
       };
     }
   }
@@ -63,7 +63,20 @@ function wrapper(my, flag) {
    */
   return function timer(req, res, next) {
 
-    setTimeout(callback.bind(this, req, res), my.milliseconds);
+    req.timeout = setTimeout(callback.bind(this, req, res), my.milliseconds);
+    // buff
+    var destroy = req.socket.destroy;
+    req.socket.destroy = function() {
+
+      clearTimeout(req.timeout);
+      destroy.call(this);
+    };
+    var end = res.end;
+    res.end = function(chunk, encoding) {
+
+      clearTimeout(req.timeout);
+      end.call(this, chunk, encoding);
+    };
     return next();
   };
 }
