@@ -34,7 +34,7 @@ app.use(timeout());
 
 #### options
 
- - `milliseconds` - **Number** Number of milliseconds before call callback *(default "2000")*
+ - `milliseconds` - **Number** Number of milliseconds before call callback *(default "5000")*
  - `header` - **Boolean** If enabled, check `res._header` before call callback *(default "false")*
  - `callback` - **Function** Custom callback instead of `res.end` *(default "null")*
  - `data` - **Object** Object passed to custom callback *(default "null")*
