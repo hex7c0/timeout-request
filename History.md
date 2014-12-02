@@ -1,3 +1,10 @@
+v1.3.0 / 2014-12-02
+==================
+
+  * Clear timeout when fired
+  * Remove `EventEmitter`
+  * Use `req.socket.destroy()`
+
 v1.2.1 / 2014-11-08
 ==================
 
