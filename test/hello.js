@@ -14,15 +14,15 @@
  */
 // import
 try {
-    var timeout = require('../index.min.js'); // use
-    // require('timeout-request')
-    // instead
-    var app = require('express')();
-    var request = require('supertest');
-    var assert = require('assert');
+  var timeout = require('../index.min.js'); // use
+  // require('timeout-request')
+  // instead
+  var app = require('express')();
+  var request = require('supertest');
+  var assert = require('assert');
 } catch (MODULE_NOT_FOUND) {
-    console.error(MODULE_NOT_FOUND);
-    process.exit(1);
+  console.error(MODULE_NOT_FOUND);
+  process.exit(1);
 }
 
 /*
@@ -30,30 +30,30 @@ try {
  */
 describe('hello', function() {
 
-    var data = 'ciao';
-    before(function(done) {
+  var data = 'ciao';
+  before(function(done) {
 
-        app.use(timeout({
-            milliseconds: 10,
-            callback: function(req, res, a) {
+    app.use(timeout({
+      milliseconds: 10,
+      callback: function(req, res, a) {
 
-                res.send(a);
-            },
-            data: data,
-        }));
-        app.get('/', function(req, res) {
+        res.send(a);
+      },
+      data: data,
+    }));
+    app.get('/', function(req, res) {
 
-            // pass
-        });
-        done();
+      // pass
     });
+    done();
+  });
 
-    it('print - should return "ciao"', function(done) {
+  it('print - should return "ciao"', function(done) {
 
-        request(app).get('/').expect(200).end(function(err, res) {
+    request(app).get('/').expect(200).end(function(err, res) {
 
-            assert.equal(res.text, data);
-            done();
-        });
+      assert.equal(res.text, data);
+      done();
     });
+  });
 });

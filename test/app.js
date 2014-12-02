@@ -14,33 +14,34 @@
  */
 // import
 try {
-    var timeout = require('../index.min.js'); // use require('timeout-request') instead
-    var app = require('express')();
-    var request = require('supertest');
+  var timeout = require('../index.min.js'); // use require('timeout-request')
+  // instead
+  var app = require('express')();
+  var request = require('supertest');
 } catch (MODULE_NOT_FOUND) {
-    console.error(MODULE_NOT_FOUND);
-    process.exit(1);
+  console.error(MODULE_NOT_FOUND);
+  process.exit(1);
 }
 
 /*
  * test module
  */
-describe('app',function() {
+describe('app', function() {
 
-    before(function(done) {
+  before(function(done) {
 
-        app.use(timeout({
-            milliseconds: 1000
-        }));
-        app.get('/',function(req,res) {
+    app.use(timeout({
+      milliseconds: 1000
+    }));
+    app.get('/', function(req, res) {
 
-            // pass
-        });
-        done();
+      // pass
     });
+    done();
+  });
 
-    it('long - should get 200 after 1000 milliseconds',function(done) {
+  it('long - should get 200 after 1000 milliseconds', function(done) {
 
-        request(app).get('/').expect(200,done);
-    });
+    request(app).get('/').expect(200, done);
+  });
 });
