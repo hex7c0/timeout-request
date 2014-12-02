@@ -38,16 +38,21 @@ function wrapper(my, flag) {
       };
     }
   } else {
+    function end(req, res) {
+
+      res.end();
+      return req.socket.destroy();
+    }
     if (my.header) {
       callback = function(req, res) {
 
         var t = res.finished || (res.socket && res.socket.writable === false);
-        return t === false ? res.end() : null;
+        return t === false ? end(req, res) : null;
       };
     } else {
       callback = function(req, res) {
 
-        return res.end();
+        return end(req, res);
       };
     }
   }
