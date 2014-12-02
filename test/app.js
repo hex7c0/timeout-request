@@ -14,9 +14,8 @@
  */
 // import
 try {
-  var timeout = require('../index.min.js'); // use require('timeout-request')
-  // instead
-  var app = require('express')();
+  var timeout = require('..');
+  var express = require('express');
   var request = require('supertest');
 } catch (MODULE_NOT_FOUND) {
   console.error(MODULE_NOT_FOUND);
@@ -28,20 +27,29 @@ try {
  */
 describe('app', function() {
 
-  before(function(done) {
+  it('should get 200 after 800 milliseconds', function(done) {
 
+    var app = express();
     app.use(timeout({
-      milliseconds: 1000
+      milliseconds: 800
     }));
     app.get('/', function(req, res) {
 
       // pass
     });
-    done();
+    request(app).get('/').expect(200, done);
   });
+  it('should get 200 after 800 milliseconds after header', function(done) {
 
-  it('long - should get 200 after 1000 milliseconds', function(done) {
+    var app = express();
+    app.use(timeout({
+      header: true,
+      milliseconds: 800
+    }));
+    app.get('/', function(req, res) {
 
+      // pass
+    });
     request(app).get('/').expect(200, done);
   });
 });

@@ -14,10 +14,8 @@
  */
 // import
 try {
-  var timeout = require('../index.min.js'); // use
-  // require('timeout-request')
-  // instead
-  var app = require('express')();
+  var timeout = require('..');
+  var express = require('express');
   var request = require('supertest');
   var assert = require('assert');
 } catch (MODULE_NOT_FOUND) {
@@ -31,8 +29,10 @@ try {
 describe('hello', function() {
 
   var data = 'ciao';
-  before(function(done) {
 
+  it('should return "ciao"', function(done) {
+
+    var app = express();
     app.use(timeout({
       milliseconds: 10,
       callback: function(req, res, a) {
@@ -45,13 +45,34 @@ describe('hello', function() {
 
       // pass
     });
-    done();
-  });
-
-  it('print - should return "ciao"', function(done) {
-
     request(app).get('/').expect(200).end(function(err, res) {
 
+      if (err)
+        throw err;
+      assert.equal(res.text, data);
+      done();
+    });
+  });
+  it('should return "ciao" after header', function(done) {
+
+    var app = express();
+    app.use(timeout({
+      header: true,
+      milliseconds: 10,
+      callback: function(req, res, a) {
+
+        res.send(a);
+      },
+      data: data,
+    }));
+    app.get('/', function(req, res) {
+
+      // pass
+    });
+    request(app).get('/').expect(200).end(function(err, res) {
+
+      if (err)
+        throw err;
       assert.equal(res.text, data);
       done();
     });
