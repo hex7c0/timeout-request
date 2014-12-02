@@ -23,51 +23,49 @@
  */
 function wrapper(my, flag) {
 
-    var callback;
-    if (flag) {
-        if (my.header) {
-            callback = function(req, res) {
+  var callback;
+  if (flag) {
+    if (my.header) {
+      callback = function(req, res) {
 
-                var t = res.finished
-                        || (res.socket && res.socket.writable === false);
-                return t === false ? my.callback(req, res, my.data) : null;
-            };
-        } else {
-            callback = function(req, res) {
-
-                return my.callback(req, res, my.data);
-            };
-        }
+        var t = res.finished || (res.socket && res.socket.writable === false);
+        return t === false ? my.callback(req, res, my.data) : null;
+      };
     } else {
-        if (my.header) {
-            callback = function(req, res) {
+      callback = function(req, res) {
 
-                var t = res.finished
-                        || (res.socket && res.socket.writable === false);
-                return t === false ? req.socket.destroy() : null;
-            };
-        } else {
-            callback = function(req) {
-
-                return req.socket.destroy();
-            };
-        }
+        return my.callback(req, res, my.data);
+      };
     }
+  } else {
+    if (my.header) {
+      callback = function(req, res) {
 
-    /**
-     * set timeout with callback
-     * 
-     * @function timer
-     * @param {Object} req - client request
-     * @param {Object} res - response to client
-     * @param {next} next - continue routes
-     * @return {next}
-     */
-    return function timer(req, res, next) {
+        var t = res.finished || (res.socket && res.socket.writable === false);
+        return t === false ? req.socket.destroy() : null;
+      };
+    } else {
+      callback = function(req) {
 
-        setTimeout(callback.bind(this, req, res), my.milliseconds);
-        return next();
-    };
+        return req.socket.destroy();
+      };
+    }
+  }
+
+  /**
+   * set timeout with callback
+   * 
+   * @function timer
+   * @param {Object} req - client request
+   * @param {Object} res - response to client
+   * @param {next} next - continue routes
+   * @return {next}
+   */
+  return function timer(req, res, next) {
+
+    setTimeout(callback.bind(this, req, res), my.milliseconds);
+    return next();
+  };
 }
 
 /**
@@ -80,16 +78,16 @@ function wrapper(my, flag) {
  */
 function timeout(opt) {
 
-    var options = opt || Object.create(null);
-    var my = {
-        milliseconds: Number(options.milliseconds) || 5000,
-        header: Boolean(options.header),
-    };
-    if (options.callback && typeof options.callback == 'function') {
-        my.callback = options.callback;
-        my.data = options.data;
-        return wrapper(my, true);
-    }
-    return wrapper(my, false);
+  var options = opt || Object.create(null);
+  var my = {
+    milliseconds: Number(options.milliseconds) || 5000,
+    header: Boolean(options.header),
+  };
+  if (options.callback && typeof options.callback == 'function') {
+    my.callback = options.callback;
+    my.data = options.data;
+    return wrapper(my, true);
+  }
+  return wrapper(my, false);
 }
 module.exports = timeout;
