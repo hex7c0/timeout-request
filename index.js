@@ -2,7 +2,6 @@
 /**
  * @file timeout-request main
  * @module timeout-request
- * @package timeout-request
  * @subpackage main
  * @version 1.3.0
  * @author hex7c0 <hex7c0@gmail.com>
@@ -29,7 +28,7 @@ function wrapper(my, flag) {
       callback = function(req, res) {
 
         var t = res.finished === true
-            || (req.socket !== undefined && req.socket.writable === false);
+          || (req.socket !== undefined && req.socket.writable === false);
         return t === false ? my.callback(req, res, my.data) : null;
       };
     } else {
@@ -48,7 +47,7 @@ function wrapper(my, flag) {
       callback = function(req, res) {
 
         var t = res.finished === true
-            || (req.socket !== undefined && req.socket.writable === false);
+          || (req.socket !== undefined && req.socket.writable === false);
         return t === false ? finale(req, res) : null;
       };
     } else {
@@ -103,7 +102,7 @@ function timeout(opt) {
     milliseconds: Number(options.milliseconds) || 5000,
     header: Boolean(options.header),
   };
-  if (options.callback && typeof options.callback == 'function') {
+  if (typeof options.callback == 'function') {
     my.callback = options.callback;
     my.data = options.data;
     return wrapper(my, true);
