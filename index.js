@@ -3,7 +3,7 @@
  * @file timeout-request main
  * @module timeout-request
  * @subpackage main
- * @version 1.3.0
+ * @version 1.4.0
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -23,13 +23,13 @@
 function wrapper(my, flag) {
 
   var callback;
+
   if (flag) {
     if (my.header) {
       callback = function(req, res) {
 
-        var t = res.finished === true
-          || (req.socket !== undefined && req.socket.writable === false);
-        return t === false ? my.callback(req, res, my.data) : null;
+        var t = res._headerSent === false || res.finished === false;
+        return t === true ? my.callback(req, res, my.data) : null;
       };
     } else {
       callback = function(req, res) {
@@ -37,6 +37,7 @@ function wrapper(my, flag) {
         return my.callback(req, res, my.data);
       };
     }
+
   } else {
     var finale = function(req, res) {
 
@@ -46,9 +47,8 @@ function wrapper(my, flag) {
     if (my.header) {
       callback = function(req, res) {
 
-        var t = res.finished === true
-          || (req.socket !== undefined && req.socket.writable === false);
-        return t === false ? finale(req, res) : null;
+        var t = res._headerSent === false || res.finished === false;
+        return t === true ? finale(req, res) : null;
       };
     } else {
       callback = function(req, res) {
@@ -59,7 +59,7 @@ function wrapper(my, flag) {
   }
 
   /**
-   * set timeout with callback
+   * set timeout as middleware with callback
    * 
    * @function timer
    * @param {Object} req - client request
@@ -70,18 +70,21 @@ function wrapper(my, flag) {
   return function timer(req, res, next) {
 
     req.timeout = setTimeout(callback.bind(this, req, res), my.milliseconds);
+
     // buff
     var destroy = req.socket.destroy;
+    var end = res.end;
+
+    // override
     req.socket.destroy = function() {
 
       clearTimeout(req.timeout);
-      destroy.call(this);
+      return destroy.call(this);
     };
-    var end = res.end;
     res.end = function(chunk, encoding) {
 
       clearTimeout(req.timeout);
-      end.call(this, chunk, encoding);
+      return end.call(this, chunk, encoding);
     };
     return next();
   };
