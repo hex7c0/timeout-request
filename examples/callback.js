@@ -1,6 +1,6 @@
 'use strict';
 /**
- * @file app example
+ * @file custom callback example
  * @module timeout-request
  * @subpackage examples
  * @version 0.0.2
@@ -16,7 +16,13 @@ var app = require('express')();
 
 // using middleware
 app.use(timeout({
-  milliseconds: 1000, // close socket after 1 sec
+  timeout: 1000,
+  data: 'ciao',
+  callback: function(req, res, a) {
+
+    res.status(408).send('timeout'); // send timeout
+    console.log(a); // print data ['ciao']
+  }
 }));
 
 // express routing
