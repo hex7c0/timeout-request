@@ -1,12 +1,13 @@
 # [timeout-request](http://supergiovane.tk/#/timeout-request)
 
-[![NPM version](https://badge.fury.io/js/timeout-request.svg)](http://badge.fury.io/js/timeout-request)
-[![Build Status](https://travis-ci.org/hex7c0/timeout-request.svg?branch=master)](https://travis-ci.org/hex7c0/timeout-request)
-[![Dependency Status](https://david-dm.org/hex7c0/timeout-request/status.svg)](https://david-dm.org/hex7c0/timeout-request)
+[![NPM version](https://img.shields.io/npm/v/timeout-request.svg)](https://www.npmjs.com/package/timeout-request)
+[![Linux Status](https://img.shields.io/travis/hex7c0/timeout-request.svg?label=linux)](https://travis-ci.org/hex7c0/timeout-request)
+[![Windows Status](https://img.shields.io/appveyor/ci/hex7c0/timeout-request.svg?label=windows)](https://ci.appveyor.com/project/hex7c0/timeout-request)
+[![Dependency Status](https://img.shields.io/david/hex7c0/timeout-request.svg)](https://david-dm.org/hex7c0/timeout-request)
+[![Coveralls](https://img.shields.io/coveralls/hex7c0/timeout-request.svg)](https://coveralls.io/r/hex7c0/timeout-request)
 
 Set the number of milliseconds that a script is allowed to run in [nodejs](http://nodejs.org/).
-If this is reached, `res.end()` will be call or custom callback.
-Emit `timeout` with "(req.res)"
+If this timeout is reached, `res.end()` or custom callback will be called
 
 ## Installation
 
@@ -25,6 +26,7 @@ git clone git://github.com/hex7c0/timeout-request.git
 inside expressjs project
 ```js
 var timeout = require('timeout-request');
+
 var app = require('express')();
 
 app.use(timeout());
@@ -34,13 +36,13 @@ app.use(timeout());
 
 #### options
 
- - `milliseconds` - **Number** Number of milliseconds before call callback *(default "5000")*
- - `header` - **Boolean** If enabled, check `res._header` before call callback *(default "false")*
+ - `milliseconds` - **Number** Number of milliseconds before callback *(default "5000")*
+ - `header` - **Boolean** If enabled, check `res._header` before callback *(default "false")*
+ - `data` - **Object** Object passed to custom callback after `req` and `res` *(default "null")*
  - `callback` - **Function** Custom callback instead of `res.end` *(default "null")*
- - `data` - **Object** Object passed to custom callback *(default "null")*
 
 ## Examples
 
-Take a look at my [examples](https://github.com/hex7c0/timeout-request/tree/master/examples)
+Take a look at my [examples](examples)
 
-### [License GPLv3](http://opensource.org/licenses/GPL-3.0)
+### [License GPLv3](LICENSE)
