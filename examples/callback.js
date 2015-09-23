@@ -23,14 +23,8 @@ app.use(timeout({
     res.status(408).send('timeout'); // send timeout
     console.log(a); // print data ['ciao']
   }
-}));
-
-// express routing
-app.get('/', function(req, res) {
+})).get('/', function(req, res) { // express routing
 
   // wait timeout-request callback
-});
-
-// server starting
-app.listen(3000);
+}).listen(3000);
 console.log('starting server on port 3000');
