@@ -1,5 +1,5 @@
 {
-  "version": "1.4.1",
+  "version": "1.4.2",
   "name": "timeout-request",
   "description": "http timeout request middleware",
   "keywords": [
