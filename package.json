@@ -1,5 +1,5 @@
 {
-  "version": "1.4.2",
+  "version": "1.4.3",
   "name": "timeout-request",
   "description": "http timeout request middleware",
   "keywords": [
@@ -9,7 +9,7 @@
     "timer"
   ],
   "preferGlobal": false,
-  "homepage": "http://supergiovane.tk/#/timeout-request",
+  "homepage": "https://github.com/hex7c0/timeout-request",
   "author": {
     "name": "hex7c0",
     "email": "hex7c0@gmail.com",

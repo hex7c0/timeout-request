@@ -1,4 +1,4 @@
-# [timeout-request](http://supergiovane.tk/#/timeout-request)
+# [timeout-request](https://github.com/hex7c0/timeout-request)
 
 [![NPM version](https://img.shields.io/npm/v/timeout-request.svg)](https://www.npmjs.com/package/timeout-request)
 [![Linux Status](https://img.shields.io/travis/hex7c0/timeout-request.svg?label=linux)](https://travis-ci.org/hex7c0/timeout-request)
