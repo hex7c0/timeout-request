@@ -47,7 +47,7 @@ describe('callback', function() {
     });
     request(app).get('/').expect(statusCode).end(function(err, res) {
 
-      assert.equal(err, null);
+      assert.ifError(err);
       assert.equal(res.text, data);
       done();
     });
@@ -69,7 +69,7 @@ describe('callback', function() {
       });
       request(app).get('/').expect(statusCode).end(function(err, res) {
 
-        assert.equal(err, null);
+        assert.ifError(err);
         assert.equal(res.text, data);
         done();
       });
