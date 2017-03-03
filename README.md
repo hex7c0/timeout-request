@@ -1,7 +1,7 @@
 # [timeout-request](https://github.com/hex7c0/timeout-request)
 
 [![NPM version](https://img.shields.io/npm/v/timeout-request.svg)](https://www.npmjs.com/package/timeout-request)
-[![Linux Status](https://img.shields.io/travis/hex7c0/timeout-request.svg?label=linux)](https://travis-ci.org/hex7c0/timeout-request)
+[![Linux Status](https://img.shields.io/travis/hex7c0/timeout-request.svg?label=linux-osx)](https://travis-ci.org/hex7c0/timeout-request)
 [![Windows Status](https://img.shields.io/appveyor/ci/hex7c0/timeout-request.svg?label=windows)](https://ci.appveyor.com/project/hex7c0/timeout-request)
 [![Dependency Status](https://img.shields.io/david/hex7c0/timeout-request.svg)](https://david-dm.org/hex7c0/timeout-request)
 [![Coveralls](https://img.shields.io/coveralls/hex7c0/timeout-request.svg)](https://coveralls.io/r/hex7c0/timeout-request)
