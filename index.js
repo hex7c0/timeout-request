@@ -2,7 +2,7 @@
 /**
  * @file timeout-request main
  * @module timeout-request
- * @version 1.6.0
+ * @version 1.7.0
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -33,7 +33,7 @@ function wrapper(my, flag) {
     } else {
       callback = function(req, res) {
 
-        return my.callback(req, res, my.data);
+        my.callback(req, res, my.data);
       };
     }
 
@@ -41,7 +41,7 @@ function wrapper(my, flag) {
     var finale = function(req, res) {
 
       res.end();
-      return req.socket.destroy();
+      req.socket.destroy();
     };
     if (my.header) {
       callback = function(req, res) {
@@ -52,7 +52,7 @@ function wrapper(my, flag) {
     } else {
       callback = function(req, res) {
 
-        return finale(req, res);
+        finale(req, res);
       };
     }
   }
@@ -78,14 +78,16 @@ function wrapper(my, flag) {
     req.socket.destroy = function() {
 
       clearTimeout(req.timeout);
-      return destroy.call(this);
+      destroy.call(this);
     };
+
     res.end = function(chunk, encoding) {
 
       clearTimeout(req.timeout);
-      return end.call(this, chunk, encoding);
+      end.call(this, chunk, encoding);
     };
-    return next();
+
+    next();
   };
 }
 
